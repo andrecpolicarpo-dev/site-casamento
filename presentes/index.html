@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de presentes | Thaís & André</title>
+  <meta name="description" content="Lista de presentes do casamento de Thaís e André.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/config.js"></script>
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <header class="hero">
+    <nav class="navbar container">
+      <a class="brand" href="/">T & A</a>
+      <a class="back-link" href="/">Voltar ao site principal</a>
+    </nav>
+    <div class="hero-content container">
+      <p class="eyebrow">Thaís & André · 28.08.2027</p>
+      <h1>Lista de presentes</h1>
+      <p>O maior presente é ter você conosco. Para quem desejar contribuir com a nossa nova etapa, preparamos sugestões românticas, divertidas e simbólicas.</p>
+      <a class="button button-light" href="#presentes">Ver presentes</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section pix-section" id="pix">
+      <div class="container pix-layout">
+        <div>
+          <p class="section-kicker">Pagamento por Pix ou cartão</p>
+          <h2>Como presentear</h2>
+          <p>Escolha um presente. Você poderá fazer um Pix no valor indicado ou abrir o link individual de pagamento.</p>
+          <ol class="steps">
+            <li>Escolha o presente desejado.</li>
+            <li>Clique em <strong>Presentear</strong>.</li>
+            <li>Para Pix, copie a chave e informe o valor exibido.</li>
+            <li>Para cartão, abra o link individual do Mercado Pago.</li>
+          </ol>
+        </div>
+        <aside class="pix-box">
+          <span>Chave Pix</span>
+          <strong>042.301.611-31</strong>
+          <small>CPF</small>
+          <button class="copy-button" type="button" data-copy="042.301.611-31">Copiar chave Pix</button>
+          <p class="pix-note">Confira o nome do recebedor antes de concluir a transferência.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section gifts-section" id="presentes">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-kicker">Sugestões</p>
+          <h2>Escolha uma lembrança para a nossa história</h2>
+          <p>Os presentes são carregados automaticamente da nossa planilha.</p>
+        </div>
+        <div class="gift-status" id="gift-status">Carregando presentes...</div>
+        <div class="gift-grid" id="gift-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-monogram">T & A</p>
+    <p>28.08.2027</p>
+    <a href="/">Voltar ao site principal</a>
+  </footer>
+
+  <dialog class="gift-dialog" id="gift-dialog">
+    <form method="dialog">
+      <button class="dialog-close" type="submit" aria-label="Fechar">×</button>
+    </form>
+    <p class="section-kicker">Presente selecionado</p>
+    <h2 id="dialog-title">Presente</h2>
+    <div class="dialog-value">
+      <span>Valor</span>
+      <strong id="dialog-price">R$ 0,00</strong>
+    </div>
+    <div class="dialog-instructions">
+      <p><strong>Chave Pix:</strong> 042.301.611-31</p>
+    </div>
+    <div class="dialog-actions">
+      <button class="copy-button copy-secondary" type="button" data-copy="042.301.611-31">Copiar chave Pix</button>
+      <button class="copy-button" id="copy-price" type="button">Copiar valor</button>
+    </div>
+    <div class="dialog-instructions">
+      <p>Para Pix, informe o valor acima e coloque o nome do presente na descrição. Para cartão, use o link individual abaixo.</p>
+    </div>
+    <a class="button card-payment-button" id="payment-link" href="#" target="_blank" rel="noopener noreferrer">Pagar com cartão de crédito</a>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

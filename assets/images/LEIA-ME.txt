@@ -1,0 +1,8 @@
+Adicione nesta pasta:
+
+- capa.jpg
+- casal.jpg
+- local.jpg
+- fundo-rsvp.jpg
+
+O site funciona mesmo sem as imagens, usando fundos temporários.
