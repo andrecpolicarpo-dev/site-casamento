@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Thaís & André | Casamento</title>
+  <meta
+    name="description"
+    content="Site do casamento de Thaís e André. Confira a programação, localização, confirmação de presença e informações para os convidados."
+  />
+
+  <!-- Prévia ao compartilhar no WhatsApp e nas redes sociais -->
+  <meta property="og:title" content="Thaís & André | Casamento" />
+  <meta property="og:description" content="Estamos preparando um dia inesquecível e queremos celebrar com você." />
+  <meta property="og:type" content="website" />
+  <!-- Depois de publicar, troque pela URL absoluta da imagem:
+  <meta property="og:image" content="https://SEU-USUARIO.github.io/casamento/assets/images/capa.jpg" />
+  -->
+
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/script.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <header class="hero" id="inicio">
+    <nav class="navbar container" aria-label="Navegação principal">
+      <a class="brand" href="#inicio" aria-label="Voltar ao início">T & A</a>
+
+      <button
+        class="menu-button"
+        type="button"
+        aria-expanded="false"
+        aria-controls="menu-principal"
+        aria-label="Abrir menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links" id="menu-principal">
+        <li><a href="#historia">Nossa história</a></li>
+        <li><a href="#programacao">Programação</a></li>
+        <li><a href="#local">Local</a></li>
+        <li><a href="#presenca">Confirmar presença</a></li>
+        <li><a href="#presentes">Presentes</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="hero-content container">
+      <p class="hero-text">21 de agosto de 2027</p>
+      <h1>Thaís <span>&</span> André</h1>
+      <p class="hero-text">
+        Estamos preparando um dia inesquecível e queremos celebrar essa história com você.
+      </p>
+      <a class="button button-primary" href="#presenca">Confirmar presença</a>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="section countdown-section" aria-labelledby="titulo-contagem">
+      <div class="container centered">
+        <p class="section-kicker">Contagem regressiva</p>
+        <h2 id="titulo-contagem">Falta pouco para o nosso grande dia</h2>
+
+        <!-- Ajuste a data e o horário no atributo abaixo -->
+        <div
+          class="countdown"
+          data-event-date="2027-08-28T16:30:00-03:00"
+          aria-live="polite"
+        >
+          <div class="countdown-card">
+            <strong id="days">000</strong>
+            <span>dias</span>
+          </div>
+          <div class="countdown-card">
+            <strong id="hours">00</strong>
+            <span>horas</span>
+          </div>
+          <div class="countdown-card">
+            <strong id="minutes">00</strong>
+            <span>minutos</span>
+          </div>
+          <div class="countdown-card">
+            <strong id="seconds">00</strong>
+            <span>segundos</span>
+          </div>
+        </div>
+
+        <p class="countdown-finished" id="countdown-finished" hidden>
+          O nosso grande dia chegou!
+        </p>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="historia" aria-labelledby="titulo-historia">
+      <div class="container split-layout">
+        <div class="image-card">
+          <!-- Coloque uma foto em assets/images/casal.jpg -->
+          <img
+            src="assets/images/casal.jpg"
+            alt="Thaís e André"
+            onerror="this.style.display='none'; this.parentElement.classList.add('image-placeholder');"
+          />
+          <span class="placeholder-text">Adicione aqui uma foto do casal</span>
+        </div>
+
+        <div>
+          <p class="section-kicker">Nossa história</p>
+          <h2 id="titulo-historia">Do encontro ao “sim”</h2>
+          <p>
+            Mineira, brasiliense, São Paulo, Brasília, engenharia, viagens e muitos planos.
+            Nossa história começou de forma improvável e rapidamente se transformou em uma
+            parceria construída com carinho, respeito e propósito.
+          </p>
+          <p>
+            Agora queremos reunir as pessoas que fazem parte da nossa vida para celebrar
+            o início de um novo capítulo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="programacao" aria-labelledby="titulo-programacao">
+      <div class="container">
+        <div class="section-heading centered">
+          <p class="section-kicker">Programação</p>
+          <h2 id="titulo-programacao">Organize-se para aproveitar cada momento</h2>
+        </div>
+
+        <div class="cards-grid">
+          <article class="info-card">
+            <span class="card-number">01</span>
+            <h3>Recepção dos convidados</h3>
+            <p class="card-time">16h00</p>
+            <p>Chegue com antecedência para se acomodar com tranquilidade.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="card-number">02</span>
+            <h3>Cerimônia</h3>
+            <p class="card-time">16h30</p>
+            <p>O momento em que celebraremos oficialmente a nossa união.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="card-number">03</span>
+            <h3>Recepção e festa</h3>
+            <p class="card-time">Após a cerimônia</p>
+            <p>Jantar, música, brindes e muita celebração.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section location-section" id="local" aria-labelledby="titulo-local">
+      <div class="container split-layout reverse">
+        <div>
+          <p class="section-kicker">Cerimônia e recepção</p>
+          <h2 id="titulo-local">Local do casamento</h2>
+          <h3 class="venue-name">Porto Real Beira Lago<br />
+            St. de Clubes Esportivos Sul Conjunto 3<br />
+            Asa Sul - Brasília - DF
+          </h3>
+          <p>
+            Recomendamos conferir o trajeto com antecedência e considerar o tempo de chegada.
+          </p>
+
+          <!-- Substitua o endereço no link -->
+          <a
+            class="button button-secondary"
+            href="https://www.google.com/maps/dir/?api=1&destination=Porto+Real+Eventos+Brasilia+DF"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Abrir no Google Maps
+          </a>
+        </div>
+
+        <div class="map-placeholder" role="img" aria-label="Espaço reservado para uma foto do local">
+            <img
+            src="assets/images/local.jpg"
+            alt=""
+            onerror="this.style.display='none';"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" aria-labelledby="titulo-orientacoes">
+      <div class="container">
+        <div class="section-heading centered">
+          <p class="section-kicker">Informações importantes</p>
+          <h2 id="titulo-orientacoes">Para você aproveitar com conforto</h2>
+        </div>
+
+        <div class="cards-grid">
+          <article class="simple-card">
+            <h3>Traje</h3>
+            <p>Esporte fino. Evitar branco, off-white e tons muito próximos ao vestido da noiva.</p>
+          </article>
+
+          <article class="simple-card">
+            <h3>Horário</h3>
+            <p>Planeje-se para chegar aproximadamente 30 minutos antes da cerimônia.</p>
+          </article>
+
+          <article class="simple-card">
+            <h3>Crianças</h3>
+            <p>As crianças são muito bem-vindas! 💛 
+              Teremos uma brinquedoteca preparada com carinho para os pequenos se divertirem.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rsvp-section" id="presenca" aria-labelledby="titulo-presenca">
+      <div class="container narrow centered">
+        <p class="section-kicker">RSVP</p>
+        <h2 id="titulo-presenca">Confirme sua presença</h2>
+        <p>
+          Sua confirmação é muito importante para organizarmos tudo com carinho.
+          Responda até <strong>10 de Agosto de 2027</strong>.
+        </p>
+
+        <!-- OPÇÃO MAIS SIMPLES:
+             1. Crie um Google Forms.
+             2. Publique o formulário.
+             3. Copie o link e substitua abaixo. -->
+        <a
+          class="button button-primary"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSfdfnpvdUSxNUeydOaxniE6gZ7clNLFxOCRPvoSMHi8po2aww/viewform?usp=publish-editor"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Abrir formulário de confirmação
+        </a>
+
+        <!-- OPÇÃO INCORPORADA:
+             Apague os comentários abaixo e cole o iframe fornecido pelo Google Forms.
+
+        <div class="form-wrapper">
+          <iframe
+            src="COLE-AQUI-O-LINK-DE-INCRUSTACAO-DO-GOOGLE-FORMS"
+            width="100%"
+            height="900"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Formulário de confirmação de presença"
+          >
+            Carregando…
+          </iframe>
+        </div>
+        -->
+      </div>
+    </section>
+
+    <section class="section" id="presentes" aria-labelledby="titulo-presentes">
+      <div class="container narrow centered">
+        <p class="section-kicker">Lista de presentes</p>
+        <h2 id="titulo-presentes">O melhor presente é ter você conosco</h2>
+        <p>
+          Para quem desejar nos presentear, disponibilizaremos uma lista com algumas sugestões.
+        </p>
+
+        <a
+          class="button button-secondary"
+          href="presentes/index-presentes.html"
+          aria-label="Acessar lista de presentes"
+        >
+          Acessar lista de presentes
+        </a>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="duvidas" aria-labelledby="titulo-duvidas">
+      <div class="container narrow">
+        <div class="section-heading centered">
+          <p class="section-kicker">Dúvidas frequentes</p>
+          <h2 id="titulo-duvidas">Informações rápidas</h2>
+        </div>
+
+        <div class="faq-list">
+          <details>
+            <summary>Posso levar acompanhante?</summary>
+            <p>Considere apenas as pessoas indicadas no convite. Em caso de dúvida, fale conosco.</p>
+          </details>
+
+          <details>
+            <summary>Haverá estacionamento?</summary>
+            <p>[INFORME AQUI AS CONDIÇÕES DO ESTACIONAMENTO.]</p>
+          </details>
+
+          <details>
+            <summary>Como aviso sobre restrição alimentar?</summary>
+            <p>Inclua essa informação no formulário de confirmação de presença.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container centered">
+      <p class="footer-monogram">T & A</p>
+      <p>21.08.2027</p>
+      <p class="small-text">Feito com carinho para celebrar a nossa história.</p>
+    </div>
+  </footer>
+</body>
+</html>
