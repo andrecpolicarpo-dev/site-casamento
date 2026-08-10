@@ -98,30 +98,30 @@
       </div>
     </section>
 
-    <section class="section section-soft" id="historia" aria-labelledby="titulo-historia">
-      <div class="container split-layout">
-        <div class="image-card">
-          <!-- Coloque uma foto em assets/images/casal.jpg -->
-          <img
-            src="assets/images/casal.jpg"
-            alt="Thaís e André"
-            onerror="this.style.display='none'; this.parentElement.classList.add('image-placeholder');"
-          />
-          <span class="placeholder-text">Adicione aqui uma foto do casal</span>
-        </div>
-
-        <div>
+    <section class="section section-soft story-section" id="historia" aria-labelledby="titulo-historia">
+      <div class="container">
+        <div class="section-heading centered story-heading">
           <p class="section-kicker">Nossa história</p>
           <h2 id="titulo-historia">Do encontro ao “sim”</h2>
-          <p>
-            Mineira, brasiliense, São Paulo, Brasília, engenharia, viagens e muitos planos.
-            Nossa história começou de forma improvável e rapidamente se transformou em uma
-            parceria construída com carinho, respeito e propósito.
-          </p>
-          <p>
-            Agora queremos reunir as pessoas que fazem parte da nossa vida para celebrar
-            o início de um novo capítulo.
-          </p>
+          <p>Alguns capítulos da caminhada que nos trouxe até aqui.</p>
+        </div>
+        <div class="story-carousel" aria-roledescription="carrossel" aria-label="Momentos da nossa história">
+          <div class="story-viewport"><div class="story-track">
+            <article class="story-slide is-active" aria-label="Momento 1 de 6" aria-hidden="false"><div class="story-photo"><img src="assets/images/historia-01.jpg" data-fallback="assets/images/casal.jpg" alt="Thaís e André no começo da história" /></div><div class="story-copy"><span class="story-number">01</span><p class="story-date">O começo</p><h3>Quando os caminhos se cruzaram</h3><p>Entre Minas, Brasília, São Paulo e muitas coincidências, um encontro improvável deu início a tudo.</p></div></article>
+            <article class="story-slide" aria-label="Momento 2 de 6" aria-hidden="true"><div class="story-photo"><img src="assets/images/historia-02.jpg" data-fallback="assets/images/casal.jpg" alt="Thaís e André se conhecendo melhor" /></div><div class="story-copy"><span class="story-number">02</span><p class="story-date">As primeiras conversas</p><h3>A sintonia apareceu</h3><p>As conversas ficaram mais longas, os encontros mais frequentes e a vontade de estar juntos cada vez maior.</p></div></article>
+            <article class="story-slide" aria-label="Momento 3 de 6" aria-hidden="true"><div class="story-photo"><img src="assets/images/historia-03.jpg" data-fallback="assets/images/casal.jpg" alt="Thaís e André em uma viagem" /></div><div class="story-copy"><span class="story-number">03</span><p class="story-date">Novas descobertas</p><h3>O mundo ficou maior a dois</h3><p>Vieram as viagens, os lugares novos e as memórias que transformaram cada destino em parte da nossa história.</p></div></article>
+            <article class="story-slide" aria-label="Momento 4 de 6" aria-hidden="true"><div class="story-photo"><img src="assets/images/historia-04.jpg" data-fallback="assets/images/casal.jpg" alt="Thaís e André celebrando juntos" /></div><div class="story-copy"><span class="story-number">04</span><p class="story-date">A vida compartilhada</p><h3>Uma parceria para todos os dias</h3><p>Nos planos e nos imprevistos, aprendemos que carinho, respeito e bom humor fazem uma casa virar lar.</p></div></article>
+            <article class="story-slide" aria-label="Momento 5 de 6" aria-hidden="true"><div class="story-photo"><img src="assets/images/historia-05.jpg" data-fallback="assets/images/casal.jpg" alt="Thaís e André no pedido de casamento" /></div><div class="story-copy"><span class="story-number">05</span><p class="story-date">O pedido</p><h3>O nosso “sim”</h3><p>Um instante cheio de emoção confirmou aquilo que o coração já sabia: queremos caminhar juntos para sempre.</p></div></article>
+            <article class="story-slide" aria-label="Momento 6 de 6" aria-hidden="true"><div class="story-photo"><img src="assets/images/historia-06.jpg" data-fallback="assets/images/casal.jpg" alt="Thaís e André preparando o casamento" /></div><div class="story-copy"><span class="story-number">06</span><p class="story-date">28 de agosto de 2027</p><h3>O próximo capítulo</h3><p>Agora queremos celebrar esse novo começo ao lado das pessoas que fazem parte da nossa vida. Esperamos você!</p></div></article>
+          </div></div>
+          <div class="story-controls">
+            <button class="story-arrow story-prev" type="button" aria-label="Ver momento anterior">‹</button>
+            <div class="story-timeline" role="tablist" aria-label="Escolha um momento da história">
+              <button class="story-dot is-active" type="button" role="tab" aria-selected="true" aria-label="Momento 1"><span></span></button><button class="story-dot" type="button" role="tab" aria-selected="false" aria-label="Momento 2"><span></span></button><button class="story-dot" type="button" role="tab" aria-selected="false" aria-label="Momento 3"><span></span></button><button class="story-dot" type="button" role="tab" aria-selected="false" aria-label="Momento 4"><span></span></button><button class="story-dot" type="button" role="tab" aria-selected="false" aria-label="Momento 5"><span></span></button><button class="story-dot" type="button" role="tab" aria-selected="false" aria-label="Momento 6"><span></span></button>
+            </div>
+            <button class="story-arrow story-next" type="button" aria-label="Ver próximo momento">›</button>
+          </div>
+          <p class="story-status" aria-live="polite"><span>01</span> / 06</p>
         </div>
       </div>
     </section>
@@ -320,5 +320,7 @@
       <p class="small-text">Feito com carinho para celebrar a nossa história.</p>
     </div>
   </footer>
+  <audio id="background-music" src="assets/música T&amp;A .mp3" loop preload="metadata"></audio>
+  <button class="music-control" type="button" aria-label="Reproduzir música" aria-pressed="false"><span class="music-icon" aria-hidden="true">♪</span><span class="music-label">Ouvir música</span></button>
 </body>
 </html>
