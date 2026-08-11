@@ -76,9 +76,12 @@ if (storyCarousel) {
   const status = storyCarousel.querySelector(".story-status span");
   const previousButton = storyCarousel.querySelector(".story-prev");
   const nextButton = storyCarousel.querySelector(".story-next");
+  const progress = storyCarousel.querySelector(".story-progress");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let currentSlide = 0;
   let autoplayTimer;
+  let touchStartX = 0;
+  let touchStartY = 0;
 
   storyCarousel.querySelectorAll("img[data-fallback]").forEach((image) => {
     image.addEventListener("error", () => {
@@ -106,21 +109,42 @@ if (storyCarousel) {
 
   function startAutoplay() {
     window.clearInterval(autoplayTimer);
-    if (!reduceMotion) autoplayTimer = window.setInterval(() => showSlide(currentSlide + 1, false), 30000);
+    if (progress) {
+      progress.classList.remove("is-running");
+      void progress.offsetWidth;
+      if (!reduceMotion) progress.classList.add("is-running");
+    }
+    if (!reduceMotion) autoplayTimer = window.setInterval(() => showSlide(currentSlide + 1), 7000);
+  }
+
+  function pauseAutoplay() {
+    window.clearInterval(autoplayTimer);
+    if (progress) progress.classList.remove("is-running");
   }
 
   previousButton.addEventListener("click", () => showSlide(currentSlide - 1));
   nextButton.addEventListener("click", () => showSlide(currentSlide + 1));
   dots.forEach((dot, index) => dot.addEventListener("click", () => showSlide(index)));
-  storyCarousel.addEventListener("mouseenter", () => window.clearInterval(autoplayTimer));
+  storyCarousel.addEventListener("mouseenter", pauseAutoplay);
   storyCarousel.addEventListener("mouseleave", startAutoplay);
-  storyCarousel.addEventListener("focusin", () => window.clearInterval(autoplayTimer));
+  storyCarousel.addEventListener("focusin", pauseAutoplay);
   storyCarousel.addEventListener("focusout", startAutoplay);
+  storyCarousel.addEventListener("touchstart", (event) => {
+    touchStartX = event.changedTouches[0].clientX;
+    touchStartY = event.changedTouches[0].clientY;
+  }, { passive: true });
+  storyCarousel.addEventListener("touchend", (event) => {
+    const deltaX = event.changedTouches[0].clientX - touchStartX;
+    const deltaY = event.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      showSlide(currentSlide + (deltaX < 0 ? 1 : -1));
+    }
+  }, { passive: true });
   showSlide(0, false);
   startAutoplay();
 }
 
-// Música de fundo: tenta iniciar após a primeira interação e mantém controle visível.
+// Música de fundo: tenta iniciar imediatamente e repete na primeira interação se o navegador bloquear.
 const backgroundMusic = document.querySelector("#background-music");
 const musicControl = document.querySelector(".music-control");
 
@@ -141,6 +165,10 @@ if (backgroundMusic && musicControl) {
     updateMusicControl();
   }
 
+  function tryMusicOnce() {
+    if (backgroundMusic.paused) playMusic();
+  }
+
   musicControl.addEventListener("click", () => backgroundMusic.paused ? playMusic() : backgroundMusic.pause());
   backgroundMusic.addEventListener("play", updateMusicControl);
   backgroundMusic.addEventListener("pause", updateMusicControl);
@@ -148,7 +176,9 @@ if (backgroundMusic && musicControl) {
     musicLabel.textContent = "Adicionar música";
     musicControl.setAttribute("aria-label", "Arquivo de música ainda não disponível");
   });
-  document.addEventListener("pointerdown", playMusic, { once: true });
-  document.addEventListener("keydown", playMusic, { once: true });
+  playMusic();
+  document.addEventListener("pointerdown", tryMusicOnce, { once: true });
+  document.addEventListener("touchstart", tryMusicOnce, { once: true, passive: true });
+  document.addEventListener("keydown", tryMusicOnce, { once: true });
   updateMusicControl();
 }
