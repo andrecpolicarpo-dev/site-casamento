@@ -9,6 +9,26 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .music-control {
+      position: fixed; right: 22px; bottom: 22px; z-index: 1000;
+      display: inline-flex; min-height: 48px; padding: 0 18px;
+      align-items: center; gap: 10px; color: #fff;
+      background: rgba(45, 48, 40, .92); border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 999px; box-shadow: 0 10px 30px rgba(45, 48, 40, .2);
+      cursor: pointer; font: 600 .85rem Montserrat, sans-serif;
+    }
+    .music-control:hover, .music-control:focus-visible { background: #a65438; }
+    .music-control.is-playing .music-icon { animation: music-pulse 1.4s ease-in-out infinite; }
+    @keyframes music-pulse { 50% { transform: scale(1.25); } }
+    @media (max-width: 560px) {
+      .music-control { right: 14px; bottom: 14px; width: 48px; padding: 0; justify-content: center; }
+      .music-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .music-control.is-playing .music-icon { animation: none; }
+    }
+  </style>
   <script src="js/config.js"></script>
   <script src="js/script.js" defer></script>
 </head>
@@ -21,7 +41,7 @@
     <div class="hero-content container">
       <p class="eyebrow">Thaís & André · 28.08.2027</p>
       <h1>Lista de presentes</h1>
-      <p>O maior presente é ter você conosco. Para quem desejar contribuir com a nossa nova etapa, preparamos sugestões românticas, divertidas e simbólicas.</p>
+      <p>Preparamos sugestões românticas, divertidas e simbólicas para quem desejar contribuir com a nossa nova etapa.</p>
       <a class="button button-light" href="#presentes">Ver presentes</a>
     </div>
   </header>
@@ -32,12 +52,13 @@
         <div>
           <p class="section-kicker">Pagamento por Pix ou cartão</p>
           <h2>Como presentear</h2>
-          <p>Escolha um presente. Você poderá fazer um Pix no valor indicado ou abrir o link individual de pagamento.</p>
+          <p>Escolha um presente e pague por Pix ou cartão de crédito. O pagamento no cartão poderá ser dividido nas opções disponibilizadas pelo Mercado Pago.</p>
           <ol class="steps">
             <li>Escolha o presente desejado.</li>
             <li>Clique em <strong>Presentear</strong>.</li>
             <li>Para Pix, copie a chave e informe o valor exibido.</li>
-            <li>Para cartão, abra o link individual do Mercado Pago.</li>
+            <li>Para pagar parcelado, escolha <strong>Pagar com cartão de crédito</strong>.</li>
+            <li>Você será redirecionado ao Mercado Pago para escolher as parcelas disponíveis e finalizar a compra com segurança.</li>
           </ol>
         </div>
         <aside class="pix-box">
@@ -87,11 +108,16 @@
       <button class="copy-button" id="copy-price" type="button">Copiar valor</button>
     </div>
     <div class="dialog-instructions">
-      <p>Para Pix, informe o valor acima e coloque o nome do presente na descrição. Para cartão, use o link individual abaixo.</p>
+      <p>Para Pix, informe o valor acima e coloque o nome do presente na descrição. Para parcelar no cartão, clique abaixo: você será redirecionado ao Mercado Pago para escolher as parcelas disponíveis e finalizar a compra.</p>
     </div>
     <a class="button card-payment-button" id="payment-link" href="#" target="_blank" rel="noopener noreferrer">Pagar com cartão de crédito</a>
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <audio id="background-music" src="../assets/musica-ta.mp3" loop preload="auto" autoplay></audio>
+  <button class="music-control" type="button" aria-label="Reproduzir música" aria-pressed="false">
+    <span class="music-icon" aria-hidden="true">♪</span>
+    <span class="music-label">Ouvir música</span>
+  </button>
 </body>
 </html>
