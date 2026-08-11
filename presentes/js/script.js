@@ -11,6 +11,8 @@ const dialogPrice = document.querySelector("#dialog-price");
 const paymentLink = document.querySelector("#payment-link");
 const copyPriceButton = document.querySelector("#copy-price");
 const toast = document.querySelector("#toast");
+const backgroundMusic = document.querySelector("#background-music");
+const musicControl = document.querySelector(".music-control");
 
 let selectedPrice = "";
 
@@ -226,3 +228,49 @@ paymentLink.addEventListener("click", event => {
 });
 
 loadGifts();
+
+// Música de fundo: tenta iniciar ao abrir e novamente na primeira interação,
+// caso o navegador bloqueie a reprodução automática com som.
+if (backgroundMusic && musicControl) {
+  const musicLabel = musicControl.querySelector(".music-label");
+  backgroundMusic.volume = 0.28;
+
+  function updateMusicControl() {
+    const playing = !backgroundMusic.paused;
+    musicControl.classList.toggle("is-playing", playing);
+    musicControl.setAttribute("aria-pressed", String(playing));
+    musicControl.setAttribute("aria-label", playing ? "Pausar música" : "Reproduzir música");
+    musicLabel.textContent = playing ? "Pausar música" : "Ouvir música";
+  }
+
+  async function playMusic() {
+    try {
+      await backgroundMusic.play();
+    } catch {
+      // O botão permanece disponível quando o navegador bloquear o autoplay.
+    }
+    updateMusicControl();
+  }
+
+  function tryMusicOnce() {
+    if (backgroundMusic.paused) playMusic();
+  }
+
+  musicControl.addEventListener("click", event => {
+    event.stopPropagation();
+    if (backgroundMusic.paused) playMusic();
+    else backgroundMusic.pause();
+  });
+  backgroundMusic.addEventListener("play", updateMusicControl);
+  backgroundMusic.addEventListener("pause", updateMusicControl);
+  backgroundMusic.addEventListener("error", () => {
+    musicLabel.textContent = "Música indisponível";
+    musicControl.setAttribute("aria-label", "Arquivo de música não encontrado");
+  });
+
+  playMusic();
+  document.addEventListener("pointerdown", tryMusicOnce, { once: true });
+  document.addEventListener("touchstart", tryMusicOnce, { once: true, passive: true });
+  document.addEventListener("keydown", tryMusicOnce, { once: true });
+  updateMusicControl();
+}
