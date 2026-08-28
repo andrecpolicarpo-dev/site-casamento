@@ -1,0 +1,104 @@
+RSVP DO CASAMENTO — GOOGLE APPS SCRIPT + GOOGLE SHEETS
+Thaís & André — 28/08/2027
+
+O QUE ESTA VERSÃO FAZ
+- Mantém a foto assets/images/fundo-rsvp.jpg como capa da seção de confirmação.
+- O formulário continua 100% dentro do site.
+- Cada envio é gravado automaticamente em uma planilha Google.
+- Cada envio tenta disparar um e-mail para:
+  • andrecpolicarpo@gmail.com
+  • thaisisaec@gmail.com
+- Se houver algum problema de cota de e-mail, a resposta continua salva na planilha.
+- Há proteção básica contra robôs (honeypot), envio duplicado acidental e fórmulas maliciosas na planilha.
+
+ARQUIVOS DESTA PASTA
+- index.html
+- css/style.css
+- js/script.js
+- google-apps-script/Code.gs
+- google-apps-script/appsscript.json
+
+PASSO 1 — CRIAR A PLANILHA
+1. Abra https://sheets.google.com
+2. Crie uma planilha nova, por exemplo: RSVP Casamento Thaís e André.
+3. Não é necessário criar as colunas manualmente.
+
+PASSO 2 — ABRIR O APPS SCRIPT
+1. Dentro da planilha, acesse Extensões > Apps Script.
+2. Apague o conteúdo padrão do arquivo Code.gs.
+3. Copie todo o conteúdo de google-apps-script/Code.gs e cole no Code.gs do Google.
+
+Opcional/recomendado:
+- No Apps Script, abra Configurações do projeto.
+- Ative a opção para mostrar o arquivo de manifesto appsscript.json.
+- Substitua o conteúdo pelo arquivo google-apps-script/appsscript.json desta pasta.
+Isso fixa o fuso horário em America/Sao_Paulo.
+
+PASSO 3 — CONFIGURAR A PLANILHA
+1. No editor do Apps Script, selecione a função setup.
+2. Clique em Executar.
+3. O Google pedirá autorização. Autorize com a conta que será proprietária da integração.
+4. Ao finalizar, será criada/formatada a aba RSVP.
+
+PASSO 4 — PUBLICAR COMO APLICATIVO DA WEB
+1. No Apps Script, clique em Implantar > Nova implantação.
+2. Tipo: Aplicativo da Web.
+3. Executar como: Eu.
+4. Quem pode acessar: Qualquer pessoa.
+5. Clique em Implantar.
+6. Copie a URL do Aplicativo da Web. Ela termina em /exec.
+
+Exemplo de formato:
+https://script.google.com/macros/s/AKfycbxxxxxxxxxxxxxxxx/exec
+
+PASSO 5 — CONECTAR O SITE
+Abra index.html e procure por:
+
+https://script.google.com/macros/s/COLE_AQUI_SEU_DEPLOYMENT_ID/exec
+
+Substitua a URL INTEIRA pela URL /exec que o Google forneceu.
+
+Não altere os nomes dos campos do formulário sem também ajustar o Code.gs.
+
+PASSO 6 — PUBLICAR NO GITHUB
+Para o site, substitua no seu repositório:
+- index.html
+- css/style.css
+- js/script.js
+
+A pasta google-apps-script NÃO precisa ir para o GitHub. Ela serve como cópia do código que deverá ficar no Apps Script.
+
+PASSO 7 — TESTE
+1. Abra o site publicado.
+2. Vá até Confirme sua presença.
+3. Preencha uma resposta de teste.
+4. Após o envio, o formulário deverá ser substituído pela mensagem “Confirmação recebida!”.
+5. Confira a aba RSVP da planilha.
+6. Confira os dois e-mails.
+7. Na última coluna da planilha, “Status do e-mail”, você verá se a notificação foi enviada ou se houve algum problema.
+
+IMPORTANTE SOBRE ALTERAÇÕES FUTURAS NO APPS SCRIPT
+Se editar o Code.gs depois da publicação:
+1. Implantar > Gerenciar implantações.
+2. Abra a implantação existente.
+3. Clique em Editar.
+4. Escolha Nova versão.
+5. Implante novamente.
+
+Normalmente a URL /exec permanece a mesma quando você atualiza a implantação existente.
+
+COLUNAS CRIADAS AUTOMATICAMENTE NA PLANILHA
+- ID
+- Data e hora
+- Nome completo
+- Presença
+- Acompanhantes
+- Criança
+- Nome e idade da criança
+- Telefone ou WhatsApp
+- Mensagem para os noivos
+- Página
+- Status do e-mail
+
+OBSERVAÇÃO
+A planilha deve ser considerada a fonte principal dos RSVPs. O envio de e-mails funciona como notificação adicional e está sujeito às cotas de envio da conta Google utilizada pelo Apps Script.
