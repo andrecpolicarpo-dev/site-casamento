@@ -200,6 +200,8 @@ if (rsvpForm) {
   const statusBox = rsvpForm.querySelector("#rsvp-form-status");
   const successPanel = document.querySelector("#rsvp-success-panel");
   const newResponseButton = document.querySelector(".rsvp-new-response");
+  const successTitle = document.querySelector("#rsvp-success-title");
+  const successMessage = document.querySelector("#rsvp-success-message");
   let submissionPending = false;
   let submissionTimeout;
 
@@ -267,19 +269,61 @@ if (rsvpForm) {
   }
 
   function finishSubmission() {
-    if (!submissionPending) return;
-    submissionPending = false;
-    window.clearTimeout(submissionTimeout);
-    setSubmitting(false);
-    rsvpForm.reset();
-    updateAttendanceFields();
-    updateChildDetails();
-    rsvpForm.hidden = true;
-    if (successPanel) {
-      successPanel.hidden = false;
-      successPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (!submissionPending) return;
+
+  /*
+   * IMPORTANTE:
+   * verificar a resposta ANTES de resetar o formulário.
+   */
+  const attending = isAttending();
+
+  submissionPending = false;
+  window.clearTimeout(submissionTimeout);
+  setSubmitting(false);
+
+  if (attending) {
+
+    if (successTitle) {
+      successTitle.textContent = "Presença confirmada! 💛";
     }
+
+    if (successMessage) {
+      successMessage.textContent =
+        "Recebemos sua confirmação para o nosso casamento no dia 28/08/2027."+
+        "Estamos muito felizes em celebrar esse momento com você!"+
+
+        "Nós vemos em Brasília! 🥂";
+    }
+
+  } else {
+
+    if (successTitle) {
+      successTitle.textContent = "Resposta recebida 💛";
+    }
+
+    if (successMessage) {
+      successMessage.textContent =
+        "Sentiremos sua falta, mas agradecemos muito por nos avisar. " +
+        "Obrigado por todo o carinho e por fazer parte da nossa história.";
+    }
+
   }
+
+  rsvpForm.reset();
+  updateAttendanceFields();
+  updateChildDetails();
+
+  rsvpForm.hidden = true;
+
+  if (successPanel) {
+    successPanel.hidden = false;
+
+    successPanel.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  }
+}
 
   function failSubmission(message) {
     if (!submissionPending) return;
