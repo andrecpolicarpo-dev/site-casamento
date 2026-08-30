@@ -289,10 +289,10 @@ if (rsvpForm) {
 
     if (successMessage) {
       successMessage.textContent =
-        "Recebemos sua confirmação para o nosso casamento no dia 28/08/2027."+
-        "Estamos muito felizes em celebrar esse momento com você!"+
-
-        "Nós vemos em Brasília! 🥂";
+        "Recebemos sua confirmação para o nosso casamento no dia 28/08/2027. "+
+        "Estamos muito felizes em celebrar esse momento com você. "+
+        
+        "Nos vemos em Brasília! 🥂";
     }
 
   } else {
