@@ -33,7 +33,7 @@
 
       <ol class="instruction-list">
         <li><strong>Se quiser, informe seu nome e sobrenome.</strong> É opcional, mas ajuda a gente a saber quem registrou cada momento.</li>
-        <li><strong>Escolha como registrar.</strong> Toque em “Abrir câmera” e alterne entre a câmera traseira e frontal quando quiser, ou selecione fotos e vídeos que já estão na galeria.</li>
+        <li><strong>Escolha como registrar.</strong> Toque em “Abrir câmera” para usar a câmera do seu celular ou selecione fotos e vídeos que já estão na galeria.</li>
         <li><strong>Confira a seleção.</strong> Você pode remover qualquer arquivo antes do envio.</li>
         <li><strong>Toque em “Enviar para Thaís & André”.</strong> Aguarde a conclusão de todos os arquivos antes de fechar a página.</li>
       </ol>
@@ -72,7 +72,7 @@
             <span class="capture-icon" aria-hidden="true">📷</span>
             <span>
               <strong>Abrir câmera</strong>
-              <small>Fotografe e alterne entre a câmera traseira e frontal quando quiser</small>
+              <small>Tire uma foto usando a câmera do seu celular</small>
             </span>
           </button>
 
@@ -85,8 +85,21 @@
           </button>
         </div>
 
-        <input id="camera-fallback-input" class="visually-hidden" type="file" accept="image/*" />
-        <input id="gallery-input" class="visually-hidden" type="file" accept="image/*,video/*" multiple />
+        <input
+          id="camera-fallback-input"
+          class="visually-hidden"
+          type="file"
+          accept="image/*"
+          capture="environment"
+        />
+        
+        <input
+          id="gallery-input"
+          class="visually-hidden"
+          type="file"
+          accept="image/*,video/*"
+          multiple
+        />
 
         <div id="selection-panel" class="selection-panel" hidden>
           <div class="selection-header">
