@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#5E6B3C" />
+  <meta name="description" content="Compartilhe suas fotos e vídeos do casamento de Thaís & André." />
+  <title>Fotos do casamento | Thaís & André</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero-card" aria-labelledby="page-title">
+      <div class="monogram" aria-hidden="true">TA</div>
+      <p class="eyebrow">28 · 08 · 2027</p>
+      <h1 id="page-title">Nosso casamento<br />pelos seus olhos</h1>
+      <p class="intro">
+        Algumas das melhores lembranças deste dia estarão no seu celular. Compartilhe com a gente as fotos e vídeos que você fizer durante a festa.
+      </p>
+    </section>
+
+    <section class="content-card instructions" aria-labelledby="como-enviar">
+      <div class="section-heading">
+        <span class="step-badge">1</span>
+        <div>
+          <p class="eyebrow small">É bem simples</p>
+          <h2 id="como-enviar">Como enviar</h2>
+        </div>
+      </div>
+
+      <ol class="instruction-list">
+        <li><strong>Se quiser, informe seu nome e sobrenome.</strong> É opcional, mas ajuda a gente a saber quem registrou cada momento.</li>
+        <li><strong>Escolha como registrar.</strong> Toque em “Abrir câmera” e alterne entre a câmera traseira e frontal quando quiser, ou selecione fotos e vídeos que já estão na galeria.</li>
+        <li><strong>Confira a seleção.</strong> Você pode remover qualquer arquivo antes do envio.</li>
+        <li><strong>Toque em “Enviar para Thaís & André”.</strong> Aguarde a conclusão de todos os arquivos antes de fechar a página.</li>
+      </ol>
+
+      <div class="privacy-note">
+        <span aria-hidden="true">♡</span>
+        <p>As fotos e vídeos são enviados diretamente para a pasta privada dos noivos no OneDrive. Outros convidados não terão acesso aos seus arquivos.</p>
+      </div>
+    </section>
+
+    <section class="content-card uploader-card" aria-labelledby="envie-agora">
+      <div class="section-heading">
+        <span class="step-badge terracotta">2</span>
+        <div>
+          <p class="eyebrow small">Agora é com você</p>
+          <h2 id="envie-agora">Envie suas fotos e vídeos</h2>
+        </div>
+      </div>
+
+      <form id="upload-form" novalidate>
+        <div class="field-group">
+          <label for="guest-name">Nome e sobrenome <span class="optional-label">(opcional)</span></label>
+          <input
+            id="guest-name"
+            name="guestName"
+            type="text"
+            autocomplete="name"
+            maxlength="80"
+            placeholder="Ex.: Mariana Souza"
+          />
+          <p class="field-help">Se você preencher, seu nome será incluído no nome de cada foto ou vídeo. Se deixar em branco, o arquivo será salvo como “Convidado”.</p>
+        </div>
+
+        <div class="capture-grid" aria-label="Opções para adicionar arquivos">
+          <button class="capture-button wide" type="button" data-picker="camera">
+            <span class="capture-icon" aria-hidden="true">📷</span>
+            <span>
+              <strong>Abrir câmera</strong>
+              <small>Fotografe e alterne entre a câmera traseira e frontal quando quiser</small>
+            </span>
+          </button>
+
+          <button class="capture-button wide" type="button" data-picker="gallery">
+            <span class="capture-icon" aria-hidden="true">▧</span>
+            <span>
+              <strong>Escolher da galeria</strong>
+              <small>Selecione várias fotos e vídeos de uma vez</small>
+            </span>
+          </button>
+        </div>
+
+        <input id="camera-fallback-input" class="visually-hidden" type="file" accept="image/*" />
+        <input id="gallery-input" class="visually-hidden" type="file" accept="image/*,video/*" multiple />
+
+        <div id="selection-panel" class="selection-panel" hidden>
+          <div class="selection-header">
+            <div>
+              <p class="eyebrow small">Sua seleção</p>
+              <h3 id="selection-count">0 arquivos</h3>
+            </div>
+            <button id="clear-selection" class="text-button" type="button">Limpar tudo</button>
+          </div>
+
+          <div id="file-list" class="file-list" aria-live="polite"></div>
+        </div>
+
+        <div id="upload-summary" class="upload-summary" hidden>
+          <div class="summary-row">
+            <span>Progresso total</span>
+            <strong id="total-progress-label">0%</strong>
+          </div>
+          <div class="progress-track" aria-hidden="true"><div id="total-progress-bar" class="progress-bar"></div></div>
+          <p id="upload-status-text" class="status-text" aria-live="polite"></p>
+        </div>
+
+        <button id="submit-button" class="submit-button" type="submit" disabled>
+          <span>Enviar para Thaís & André</span>
+          <span aria-hidden="true">→</span>
+        </button>
+
+        <p class="mobile-note">Mantenha esta página aberta até aparecer a confirmação de envio. Em vídeos maiores, o processo pode levar alguns minutos dependendo da internet.</p>
+      </form>
+    </section>
+
+    <section id="success-card" class="success-card" aria-live="polite" hidden>
+      <div class="success-icon" aria-hidden="true">✓</div>
+      <p class="eyebrow small">Recebemos!</p>
+      <h2>Obrigado por registrar esse dia com a gente.</h2>
+      <p id="success-message">Suas fotos e vídeos foram enviados com sucesso.</p>
+      <button id="send-more-button" type="button" class="secondary-button">Enviar mais fotos</button>
+    </section>
+
+    <footer>
+      <span>Thaís</span><span class="footer-heart">♡</span><span>André</span>
+      <small>28.08.2027</small>
+    </footer>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <div id="camera-modal" class="camera-modal" hidden aria-modal="true" role="dialog" aria-labelledby="camera-title">
+    <div class="camera-panel">
+      <div class="camera-topbar">
+        <div>
+          <p class="eyebrow small">Foto</p>
+          <h2 id="camera-title">Câmera</h2>
+        </div>
+        <button id="camera-close" class="camera-close" type="button" aria-label="Fechar câmera">×</button>
+      </div>
+
+      <div class="camera-stage">
+        <video id="camera-video" autoplay playsinline muted></video>
+        <div id="camera-loading" class="camera-loading">Abrindo câmera…</div>
+      </div>
+
+      <div class="camera-controls">
+        <button id="camera-switch" class="camera-switch" type="button">
+          <span aria-hidden="true">↺</span>
+          <span>Trocar câmera</span>
+        </button>
+        <button id="camera-shutter" class="camera-shutter" type="button" aria-label="Tirar foto">
+          <span></span>
+        </button>
+        <div class="camera-control-spacer" aria-hidden="true"></div>
+      </div>
+      <p class="camera-help">Use “Trocar câmera” para alternar entre a frontal e a traseira.</p>
+    </div>
+  </div>
+  <canvas id="camera-canvas" class="visually-hidden"></canvas>
+
+  <script src="./config.js"></script>
+  <script src="./app.js" defer></script>
+</body>
+</html>
