@@ -96,28 +96,9 @@
     addFiles(files, source);
   }
 
-  async function openCamera() {
-    if (!navigator.mediaDevices?.getUserMedia) {
-      showToast("Seu navegador abrirá as opções disponíveis para escolher ou tirar uma foto.");
-      els.cameraFallbackInput.click();
-      return;
-    }
-
-    els.cameraModal.hidden = false;
-    document.body.classList.add("camera-open");
-    els.cameraLoading.hidden = false;
-    els.cameraLoading.textContent = "Abrindo câmera…";
-    els.cameraShutter.disabled = true;
-
-    try {
-      await startCamera({ facingMode: cameraState.facingMode });
-      els.cameraClose.focus({ preventScroll: true });
-    } catch (error) {
-      console.error("camera error", error);
-      closeCamera();
-      showToast(cameraAccessMessage(error));
-    }
-  }
+  function openCamera() {
+  els.cameraFallbackInput.click();
+}
 
   async function startCamera({ deviceId = "", facingMode = "environment" } = {}) {
     stopCameraStream();
