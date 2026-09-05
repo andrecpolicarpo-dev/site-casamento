@@ -3,8 +3,8 @@
   Exemplo: https://casamento-fotos-api.vercel.app
 */
 window.PHOTO_UPLOAD_CONFIG = {
-  apiBaseUrl: "https://SEU-BACKEND.vercel.app",
-  eventPublicKey: "troque-por-uma-chave-publica-aleatoria",
+  apiBaseUrl: "https://casamento-fotos-api.vercel.app",
+  eventPublicKey: "01b2c12008434ead8eb7757c94d0967d",
   maxFilesPerBatch: 50,
   maxFileSizeMB: 2048,
   uploadConcurrency: 2,
