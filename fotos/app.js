@@ -401,14 +401,39 @@
     renderQueue();
 
     if (failed.length === 0) {
-      els.uploadStatusText.textContent = "Tudo enviado com sucesso.";
-      els.successMessage.textContent = `${succeeded.length} ${succeeded.length === 1 ? "arquivo foi enviado" : "arquivos foram enviados"} para Thaís & André.`;
-      els.successCard.hidden = false;
-      queue.forEach(releasePreview);
-      queue = [];
-      renderQueue();
-      els.successCard.scrollIntoView({ behavior: "smooth", block: "center" });
-    } else {
+
+  // Garante que o usuário veja a conclusão
+  els.totalProgressBar.style.width = "100%";
+  els.totalProgressLabel.textContent = "100%";
+  els.uploadStatusText.textContent = "Tudo enviado com sucesso.";
+
+  els.successMessage.textContent =
+    `${succeeded.length} ${
+      succeeded.length === 1
+        ? "arquivo foi enviado"
+        : "arquivos foram enviados"
+    } para Thaís & André.`;
+
+  els.successCard.hidden = false;
+
+  queue.forEach(releasePreview);
+  queue = [];
+
+  renderQueue();
+
+  // Esconde a barra de progresso após a conclusão
+  els.uploadSummary.hidden = true;
+
+  // Reseta para o próximo envio
+  els.totalProgressBar.style.width = "0%";
+  els.totalProgressLabel.textContent = "0%";
+  els.uploadStatusText.textContent = "";
+
+  els.successCard.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+} else {
       els.uploadStatusText.textContent = `${failed.length} ${failed.length === 1 ? "arquivo não foi enviado" : "arquivos não foram enviados"}. Toque novamente em enviar para tentar só os que falharam.`;
       showToast("Alguns arquivos falharam. Sua seleção foi mantida para você tentar novamente.");
     }
@@ -432,12 +457,23 @@
 
       try {
         const response = await putChunkWithRetry(
-          session.uploadUrl,
-          chunk,
-          offset,
-          endInclusive,
-          item.file.size
-        );
+  session.uploadUrl,
+  chunk,
+  offset,
+  endInclusive,
+  item.file.size,
+  loaded => {
+    const uploadedNow = offset + loaded;
+
+    item.progress = Math.min(
+      99,
+      Math.round((uploadedNow / item.file.size) * 100)
+    );
+
+    updateFileVisual(item);
+    updateTotalProgress();
+  }
+);
 
         if (response.status === 200 || response.status === 201) {
           offset = item.file.size;
@@ -503,36 +539,123 @@
     return data;
   }
 
-  async function putChunkWithRetry(uploadUrl, chunk, start, endInclusive, total) {
-    const attempts = 4;
+  async function putChunkWithRetry(
+  uploadUrl,
+  chunk,
+  start,
+  endInclusive,
+  total,
+  onProgress
+) {
+  const attempts = 4;
 
-    for (let attempt = 0; attempt < attempts; attempt += 1) {
-      try {
-        const response = await fetch(uploadUrl, {
-          method: "PUT",
-          headers: {
-            "Content-Range": `bytes ${start}-${endInclusive}/${total}`,
-            "Content-Type": "application/octet-stream",
-          },
-          body: chunk,
-        });
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    try {
+      const response = await putChunkXHR(
+        uploadUrl,
+        chunk,
+        start,
+        endInclusive,
+        total,
+        onProgress
+      );
 
-        if (response.status === 429 || response.status >= 500) {
-          if (attempt === attempts - 1) return response;
-          const retryAfter = Number(response.headers.get("Retry-After"));
-          await sleep(Number.isFinite(retryAfter) ? retryAfter * 1000 : backoff(attempt));
-          continue;
+      if (response.status === 429 || response.status >= 500) {
+        if (attempt === attempts - 1) {
+          return response;
         }
 
-        return response;
-      } catch (error) {
-        if (attempt === attempts - 1) throw error;
         await sleep(backoff(attempt));
+        continue;
       }
-    }
 
-    throw new Error("Não foi possível enviar o arquivo após várias tentativas.");
+      return response;
+
+    } catch (error) {
+      if (attempt === attempts - 1) {
+        throw error;
+      }
+
+      await sleep(backoff(attempt));
+    }
   }
+
+  throw new Error("Não foi possível enviar o arquivo após várias tentativas.");
+}
+
+
+function putChunkXHR(
+  uploadUrl,
+  chunk,
+  start,
+  endInclusive,
+  total,
+  onProgress
+) {
+  return new Promise((resolve, reject) => {
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.open("PUT", uploadUrl, true);
+
+    xhr.setRequestHeader(
+      "Content-Range",
+      `bytes ${start}-${endInclusive}/${total}`
+    );
+
+    xhr.setRequestHeader(
+      "Content-Type",
+      "application/octet-stream"
+    );
+
+    xhr.upload.onprogress = event => {
+      if (!event.lengthComputable) return;
+
+      if (typeof onProgress === "function") {
+        onProgress(event.loaded);
+      }
+    };
+
+    xhr.onload = () => {
+
+      const headers = new Headers();
+
+      const rawHeaders = xhr.getAllResponseHeaders();
+
+      rawHeaders
+        .trim()
+        .split(/[\r\n]+/)
+        .filter(Boolean)
+        .forEach(line => {
+          const parts = line.split(": ");
+          const key = parts.shift();
+          const value = parts.join(": ");
+
+          if (key && value) {
+            headers.append(key, value);
+          }
+        });
+
+      resolve(
+        new Response(xhr.responseText || null, {
+          status: xhr.status,
+          statusText: xhr.statusText,
+          headers,
+        })
+      );
+    };
+
+    xhr.onerror = () => {
+      reject(new Error("NetworkError: falha durante o envio."));
+    };
+
+    xhr.onabort = () => {
+      reject(new Error("Upload cancelado."));
+    };
+
+    xhr.send(chunk);
+  });
+}
 
   async function fetchUploadStatus(uploadUrl) {
     const response = await fetch(uploadUrl, { method: "GET" });
@@ -562,17 +685,38 @@
   }
 
   function updateTotalProgress() {
-    if (!queue.length) {
-      els.totalProgressBar.style.width = "0%";
-      els.totalProgressLabel.textContent = "0%";
-      return;
-    }
-    const totalBytes = queue.reduce((sum, item) => sum + item.file.size, 0);
-    const uploadedApprox = queue.reduce((sum, item) => sum + item.file.size * (item.progress / 100), 0);
-    const percent = totalBytes ? Math.round((uploadedApprox / totalBytes) * 100) : 0;
-    els.totalProgressBar.style.width = `${percent}%`;
-    els.totalProgressLabel.textContent = `${percent}%`;
+  if (!queue.length) {
+    els.totalProgressBar.style.width = "0%";
+    els.totalProgressLabel.textContent = "0%";
+    return;
   }
+
+  const totalBytes = queue.reduce(
+    (sum, item) => sum + item.file.size,
+    0
+  );
+
+  const uploadedBytes = queue.reduce((sum, item) => {
+
+    if (item.status === "success") {
+      return sum + item.file.size;
+    }
+
+    return sum + (
+      item.file.size *
+      Math.max(0, Math.min(100, item.progress)) /
+      100
+    );
+
+  }, 0);
+
+  const percent = totalBytes
+    ? Math.round((uploadedBytes / totalBytes) * 100)
+    : 0;
+
+  els.totalProgressBar.style.width = `${percent}%`;
+  els.totalProgressLabel.textContent = `${percent}%`;
+}
 
   function stateLabel(item) {
     switch (item.status) {
